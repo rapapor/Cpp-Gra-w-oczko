@@ -1,0 +1,187 @@
+#include <iostream>
+#include <algorithm>
+#include <ctime>
+#include <sstream>
+#include <string>
+using namespace std;
+
+int* randomcard(int pick[4][13])
+   {
+	   int x = 0;
+	   int y = 0;
+   do
+  {
+
+  	 x = rand() % 4;
+  	 y = rand() % 13;
+
+  }while(pick[x][y]==0);
+
+  	 int* p = new int[2];
+  	 p[0] = x;
+  	 p[1] = y;
+ 	 return p;
+   }
+
+int main()
+{
+	char w1;
+	char w2;
+	stringstream ss;
+
+	cout<<"Zapraszam do gry w oczko"<<endl;
+	do{
+
+time_t tTime;
+    time(&tTime);
+    srand(tTime);
+    rand();
+
+    	
+  int deck[4][13]={{2,3,4,5,6,7,8,9,10,10,10,10,11},
+  		    	   {2,3,4,5,6,7,8,9,10,10,10,10,11},
+  		           {2,3,4,5,6,7,8,9,10,10,10,10,11},
+  		           {2,3,4,5,6,7,8,9,10,10,10,10,11}
+  };
+
+  	int pick[4][13]={{1,1,1,1,1,1,1,1,1,1,1,1,1},
+  		        	 {1,1,1,1,1,1,1,1,1,1,1,1,1},
+  		        	 {1,1,1,1,1,1,1,1,1,1,1,1,1},
+  		        	 {1,1,1,1,1,1,1,1,1,1,1,1,1}
+  };
+
+  	char* namecard[4][13]={{"2-trefl","3-trefl","4-trefl","5-trefl","6-trefl","7-trefl","8-trefl","9-trefl","10-trefl","W-trefl","D-trefl","K-trefl","A-trefl"},
+	    	   	   	   	  {"2-caro" ,"3-caro" ,"4-caro" ,"5-caro" ,"6-caro" ,"7-caro" ,"8-caro" ,"9-caro" ,"10-caro" ,"W-caro" ,"D-caro" ,"K-caro" ,"A-caro"},
+	    	   	   	   	  {"2-pik"  ,"3-pik"  ,"4-pik"  ,"5-pik"  ,"6-pik"  ,"7-pik"  ,"8-pik"  ,"9-pik"  ,"10-pik"  ,"W-pik"  ,"D-pik"  ,"K-pik"  ,"A-pik"},
+	    	   	   	   	  {"2-heart","3-heart","4-heart","5-heart","6-heart","7-heart","8-heart","9-heart","10-heart","W-heart","D-heart","K-heart","A-heart"}
+  	};
+
+    int suma = 0;
+
+    cout<<"Gracz pierwszy"<<endl;
+cout<<"Twoje karty to:"<<endl;
+
+int* card = randomcard(pick);
+pick[card[0]][card[1]]=0;
+int cardvalue = deck[card[0]][card[1]];
+char* nameC=namecard[card[0]][card[1]];
+
+cout<<nameC<<endl;
+suma=suma+cardvalue;
+
+card = randomcard(pick);
+pick[card[0]][card[1]]=0;
+cardvalue = deck[card[0]][card[1]];
+nameC=namecard[card[0]][card[1]];
+
+cout<<nameC<<endl;
+suma=suma+cardvalue;
+
+cout<<"Suma"<<"="<<suma<<endl;
+
+
+do
+{
+	cout<<"Pobierz kartę 'p', zakończ rozdanie 'z',zakończ grę 'k'"<<endl;
+	cin>>w1;
+	if(w1=='p')
+	{
+		card = randomcard(pick);
+		pick[card[0]][card[1]]=0;
+		cardvalue = deck[card[0]][card[1]];
+		nameC=namecard[card[0]][card[1]];
+
+		cout<<nameC<<endl;
+		suma=suma+cardvalue;
+
+		cout<<"Suma"<<"="<<suma<<endl;
+	}
+}while(suma<=21 && w1 != 'z' && w1 != 'k');
+
+cout<<"Gracz 2"<<endl;
+cout<<"Twoje karty to:"<<endl;
+int suma2=0;
+
+
+card = randomcard(pick);
+pick[card[0]][card[1]]=0;
+cardvalue = deck[card[0]][card[1]];
+nameC=namecard[card[0]][card[1]];
+
+cout<<nameC<<endl;
+suma2=suma2+cardvalue;
+
+
+
+card = randomcard(pick);
+pick[card[0]][card[1]]=0;
+cardvalue = deck[card[0]][card[1]];
+nameC=namecard[card[0]][card[1]];
+
+cout<<nameC<<endl;
+suma2=suma2+cardvalue;
+
+
+cout<<"Suma"<<"="<<suma2<<endl;
+
+
+
+
+
+do
+	{
+		cout<<"Pobierz kartę 'p', zakończ rozdanie 'z',zakończ grę 'k'"<<endl;
+
+		cin>>w2;
+			if(w2=='p')
+			{
+				card = randomcard(pick);
+				pick[card[0]][card[1]]=0;
+				cardvalue = deck[card[0]][card[1]];
+				nameC=namecard[card[0]][card[1]];
+
+				cout<<nameC<<endl;
+				suma2=suma2+cardvalue;
+
+				cout<<"Suma"<<"="<<suma2<<endl;
+			}
+	}while(suma2<=21&&w2!='z' && w2 != 'k');
+
+if(suma<=21 && suma2<=21)
+{
+	if(suma==suma2)
+	{
+		cout<<"Remis"<<endl;
+	}
+	else if(suma>suma2)
+	{
+		cout<<"Wygrał gracz Pierwszy"<<endl;
+	}
+	else
+	{
+		cout<<"Wygrał gracz Drugi"<<endl;
+	}
+}
+else
+{
+	if(suma > 21 && suma2 > 21)
+	{
+		cout<<"Przegrali oboje"<<endl;
+	}
+	else if(suma2 > 21)
+	{
+		cout<<"Wygrał gracz Pierwszy"<<endl;
+	}
+	else
+	{
+		cout<<"Wygrał gracz Drugi"<<endl;
+	}
+}
+	 ss <<  "Gracz 1: "<<suma<<" Gracz 2: "<<suma2<<"\n";
+
+}while(w1!='k'&& w2!='k');
+
+	string wyniki = ss.str();
+	cout<<wyniki<<endl;
+}
+
